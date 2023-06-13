@@ -1,3 +1,4 @@
+import { FirebaseError } from 'firebase/app';
 import firebase_app from '../config';
 import {
   createUserWithEmailAndPassword,
@@ -13,10 +14,9 @@ const auth = getAuth(firebase_app);
 
 export default async function signUp(email: string, password: string, name: string) {
   const db = getFirestore(firebase_app);
-  let result = null,
-    error = null;
+
   try {
-    result = await createUserWithEmailAndPassword(auth, email, password);
+    const result = await createUserWithEmailAndPassword(auth, email, password); 
     const docRef = doc(db, 'users', result.user.uid);
     await setDoc(docRef, {
         uid: result.user.uid,
@@ -26,9 +26,11 @@ export default async function signUp(email: string, password: string, name: stri
         role: 'user',
         userdata: []
     });
-  } catch (err) {
-    error = err;
-  }
 
-  return { result, error };
+    return {error: null, result};
+  } catch (err) {
+    const error = err as FirebaseError;
+
+    return {error: error, result: null};
+  }
 }
