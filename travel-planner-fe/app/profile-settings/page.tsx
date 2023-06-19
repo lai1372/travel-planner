@@ -1,6 +1,17 @@
+'use client'
+
 import styles from "../page.module.css";
+import DeleteAccount from "../firebase/profile/deleteAccount";
 
 export default function ProfileSettings() {
+  
+  const handleDelete = () => {
+    DeleteAccount('005cAObhZ6R7207OClgUB1qYYfC2')
+  }
+  
+  
+  
+  
   return (
     <>
       <h1>Profile Settings for x</h1>
@@ -12,7 +23,8 @@ export default function ProfileSettings() {
       <p>Name: x <button>Edit name</button></p>
       
       <button>Change password</button>
-      <button className={styles.delete}>Delete account</button>
+
+      <button className={styles.delete} onClick={handleDelete}>Delete account</button>
     </>
   );
 }
