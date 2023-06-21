@@ -23,7 +23,7 @@ const db = getFirestore(firebase_app);
 function Itinerary() {
   const [currentDay, setCurrentDay] = useState<number | null>(null);
   const searchParams = useSearchParams();
-  const destination = searchParams.get("destination");
+  const destination = searchParams.get("destination") || "";
   const { user } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [itineraryData, setItineraryData] = useState({
@@ -48,7 +48,7 @@ function Itinerary() {
     return <LoadingPage />;
   }
 
-  console.log(destination)
+ 
 
   return (
     <section>
@@ -86,7 +86,8 @@ function Itinerary() {
                 JSON.stringify(
                   itineraryData.restaurants.slice(index * 3, index * 3 + 3)
                 )
-              )}`}
+              )}&destination=${encodeURIComponent(destination)
+                }`}
             >
               <Paper
                 sx={{

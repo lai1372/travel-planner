@@ -18,9 +18,11 @@ export default function SingleDay() {
   const parsedPlaces = places ? JSON.parse(places) : [];
   const parsedRestaurants = restaurants ? JSON.parse(restaurants) : [];
 
-  const destination = searchParams.get("destination");
+  const destination = searchParams.get("destination") || "";
 
- console.log
+ console.log(destination, "here")
+ console.log(searchParams)
+
   return (
     <main>
       <h1>Day {currentDay}</h1>
@@ -51,8 +53,8 @@ export default function SingleDay() {
           </ul>
         </article>
       </section>
-      <Link href={`/itineraries?destination=${destination}`}>
-          <button >Return to itinerary</button>
+      <Link href={`/itineraries?destination=${encodeURIComponent(destination)}`}>
+          <button>Return to itinerary</button>
         </Link>
     </main>
   );
