@@ -12,9 +12,20 @@ import Paper from "@mui/material/Paper";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import NextLink from "next/link";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Box from "@mui/material/Box";
+import { StaticImageData } from "next/image";
+import milford from "../public/milford.jpg";
 
 const contextIsDark = createContext<
   { isDark: boolean; setIsDark: (isDark: boolean) => void } | undefined
+>(undefined);
+
+const contextBackgroundImage = createContext<
+  | {
+      backgroundImage: string;
+      setBackgroundImage: (image: string) => void;
+    }
+  | undefined
 >(undefined);
 
 const LinkBehaviour = forwardRef(function LinkBehaviour(props, ref) {
@@ -24,8 +35,10 @@ const LinkBehaviour = forwardRef(function LinkBehaviour(props, ref) {
 
 export default function AppMuiThemeProvider(props: {
   children: React.ReactNode;
+  fontFamily?: string;
 }) {
   const { children } = props;
+  const [backgroundImage, setBackgroundImage] = useState<string>(milford.src);
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   useEffect(() => {
@@ -44,8 +57,29 @@ export default function AppMuiThemeProvider(props: {
   const theme = useMemo(
     () =>
       createTheme({
+        mode: "light",
         palette: {
-          mode: prefersDarkMode ? "dark" : "light",
+          primary: {
+            main: "#fff685",
+          },
+          secondary: {
+            main: "#00ddff",
+          },
+          background: {
+            paper: "#d01746",
+            default: "#ff1d58",
+          },
+          text: {
+            primary: "rgba(255,255,255,0.87)",
+            secondary: "rgba(16,16,16,0.54)",
+          },
+          divider: "#000044",
+        },
+        typography: {
+          fontFamily: props.fontFamily,
+        },
+        shape: {
+          borderRadius: 16,
         },
         components: {
           MuiLink: {
@@ -63,12 +97,50 @@ export default function AppMuiThemeProvider(props: {
       }),
     [prefersDarkMode]
   );
+  const wrap = useMemo(
+    () => ({ backgroundImage, setBackgroundImage }),
+    [backgroundImage]
+  );
 
   return (
     <ThemeProvider theme={theme}>
-      <Paper sx={{ p: 0 }}>{children}</Paper>
+      <contextBackgroundImage.Provider value={wrap}>
+        <Box
+          id="app-container"
+          sx={{
+            height: "100vh",
+            width: "100vw",
+          }}
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundImage: `url(${backgroundImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              filter: "blur(5px)", // Change the pixel value to adjust the blur
+              zIndex: -1,
+            }}
+          />
+          {children}
+        </Box>
+      </contextBackgroundImage.Provider>
     </ThemeProvider>
   );
+}
+
+export function useBackgroundImage() {
+  const wrap = useContext(contextBackgroundImage);
+
+  if (wrap === undefined) {
+    throw new Error("Not wrapped in provider");
+  }
+
+  return wrap;
 }
 
 export function useIsDark() {

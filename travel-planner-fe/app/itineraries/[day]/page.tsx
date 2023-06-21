@@ -14,9 +14,14 @@ export default function SingleDay() {
   const currentDay = usePathname().slice(-1);
   const places = searchParams.get("places") || null;
   const restaurants = searchParams.get("restaurants") || null;
+  const destinationCoordinates =
+    searchParams.get("destination_coordinates") || null;
 
   const parsedPlaces = places ? JSON.parse(places) : [];
   const parsedRestaurants = restaurants ? JSON.parse(restaurants) : [];
+  const parsedCoordinates = destinationCoordinates
+    ? JSON.parse(destinationCoordinates)
+    : [];
 
   const destination = searchParams.get("destination") || "";
 

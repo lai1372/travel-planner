@@ -24,17 +24,19 @@ const HamburgerList = ({ handleCloseMenu }: HamburgerListProps) => {
       link: "/",
       icon: Home,
     },
-    {
-      name: "My Itineraries",
+  ];
+  if (user?.uid) {
+    Buttons.push({
+      name: "My Trips",
       link: "/trips",
       icon: FormatListBulleted,
-    },
-    {
-      name: user ? "Logout" : "Sign In",
-      link: user ? "/logout" : "/sign-in",
-      icon: user ? Logout : Login,
-    },
-  ];
+    });
+  }
+  Buttons.push({
+    name: user ? "Logout" : "Sign In",
+    link: user ? "/logout" : "/sign-in",
+    icon: user ? Logout : Login,
+  });
 
   return (
     <List>

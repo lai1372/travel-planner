@@ -6,7 +6,10 @@ import { redirect } from "next/navigation";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { useIsDark } from "@/shared/AppMuiThemeProvider";
+import Box from "@mui/material/Box";
+import milford from "../public/milford.jpg";
+import { useBackgroundImage } from "@/shared/AppMuiThemeProvider";
+import Logo from "@/components/logo";
 
 export default function LandingPage() {
   const { user } = useContext(AuthContext);
@@ -17,10 +20,15 @@ export default function LandingPage() {
   }, [user]);
   return (
     <Stack sx={{ gap: 5 }}>
-      <Typography textAlign="center" variant="h3">
-        Ready, Jet Set, Go! 🧳
-      </Typography>
-      <Typography textAlign="center" variant="body2">
+      <Logo
+        style={{
+          display: "block",
+          height: "20vh",
+          width: "auto",
+          objectFit: "contain",
+        }}
+      />
+      <Typography textAlign="center" variant="h6">
         Welcome to your itinerary travel planner, the ultimate companion for
         seamless trip organization and unforgettable adventures!
       </Typography>

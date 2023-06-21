@@ -5,16 +5,22 @@ import Destination from "@/components/destinationSearch";
 import Duration from "@/components/duration";
 import Preferences from "@/components/preferences";
 
+enum Pages {
+  Destination,
+  Duration,
+  Preferences,
+}
+
 export default function App() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<Pages>(Pages.Destination);
   const [destination, setDestination] = useState<string>("");
   const [lng, setLng] = useState<number | null>(null);
   const [lat, setLat] = useState<number | null>(null);
-  const [numDays, setNumDays] = useState(0);
+  const [numDays, setNumDays] = useState<null | number>(null);
 
   return (
     <div>
-      {currentPage === 1 && (
+      {currentPage === Pages.Destination && (
         <Destination
           setCurrentPage={setCurrentPage}
           setLng={setLng}
@@ -23,7 +29,7 @@ export default function App() {
           destination={destination}
         />
       )}
-      {currentPage === 2 && (
+      {currentPage === Pages.Duration && (
         <Duration
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
@@ -31,7 +37,7 @@ export default function App() {
           setNumDays={setNumDays}
         />
       )}
-      {currentPage === 3 && (
+      {currentPage === Pages.Preferences && (
         <Preferences
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}

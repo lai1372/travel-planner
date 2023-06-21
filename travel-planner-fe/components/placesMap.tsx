@@ -11,7 +11,7 @@ import ReactMapGL, {
 } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { red } from "@mui/material/colors";
+import red from "@mui/material/colors/red";
 
 import mapboxgl from "mapbox-gl";
 import { useRef, useState, useEffect } from "react";
