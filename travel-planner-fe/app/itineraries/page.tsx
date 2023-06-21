@@ -48,7 +48,10 @@ function Itinerary() {
     return <LoadingPage />;
   }
 
+  console.log(destination)
+
   return (
+    <section>
     <Timeline
       sx={{
         [`& .${timelineItemClasses.root}:before`]: {
@@ -102,6 +105,10 @@ function Itinerary() {
         </TimelineItem>
       ))}
     </Timeline>
+    <Link href='/trips'>
+      <button>Return to your trips</button>
+    </Link>
+    </section>
   );
 }
 
