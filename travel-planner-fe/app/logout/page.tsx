@@ -25,10 +25,15 @@ function Logout() {
     logout();
   }, [user]);
   return (
-    <Stack alignItems="center">
+    <Stack
+      alignItems="center"
+      textAlign="center"
+      justifyContent="center"
+      sx={{ minHeight: "100vh" }}
+    >
       <Typography variant="h3">Logged out successfully</Typography>
       <Button
-        sx={{ width: "100px" }}
+        sx={{ width: "100px", marginTop: "16px" }}
         href="/sign-in"
         variant="contained"
         component={Link}

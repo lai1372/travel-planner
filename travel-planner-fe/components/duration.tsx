@@ -58,7 +58,7 @@ export default function Duration({
             <TextField
               label="How many days are you there for?"
               id="numDays"
-              value={numDays}
+              value={numDays?.toString()}
               type="number"
               inputProps={{ min: 1, max: 7 }}
               onChange={handleChange}
