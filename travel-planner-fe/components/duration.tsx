@@ -32,7 +32,7 @@ export default function Duration({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
-    setNumDays(value);
+    setNumDays(e.target.value);
     setIsDisabled(value < 1 || value > 7);
   };
 
